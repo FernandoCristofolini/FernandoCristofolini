@@ -12,17 +12,12 @@ body
 .container
 {
     width: 800px;
-    background: linear-gradient(45deg, #6969FF,#C669FF, green, yellow);
+    background: black;
     border: solid 1px black;
-    animation: hue-rotate 5s linear infinite alternate;
+    
     border-radius: 5px 5px 10px 10px;
 }
-@keyframes hue-rotate
-{
-    to{
-        filter: hue-rotate(90deg);
-    }
-}
+
 h1
 {
     color: #fff;
@@ -53,7 +48,9 @@ a
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background: linear-gradient(45deg, #6969FF,#C669FF, green, yellow);
     align-items: center;
+    animation: hue-rotate 5s linear infinite alternate;
 }
 .cabecalho img
 {
@@ -63,6 +60,12 @@ a
     margin-top: 10px;
     border: solid 1px black;
     filter: none;
+}
+@keyframes hue-rotate
+{
+    to{
+        filter: hue-rotate(90deg);
+    }
 }
 .informacoes
 {
