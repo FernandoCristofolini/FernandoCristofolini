@@ -39,7 +39,7 @@ h1
 a 
 {
     color: white;
-    margin: 10px 10px 10px 0;
+    margin: 10px;
     font-size: 15px;
     text-decoration:none
 }
@@ -125,7 +125,7 @@ a
 }
 .item
 {
-    flex: 1 1 150px !important;
+    flex: 1 1 150px;
 }
 .loader
 {
