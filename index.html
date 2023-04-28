@@ -8,44 +8,14 @@
         <!-- Arquivos de CSS -->
         <link href="./css/style.css" rel="stylesheet"/>
     </head>
-</html>
 <body>
-    <!--<select id="traduz" style="position: fixed;left:0;top:0;">
-        <option value="pt">
-            <p>BANANA</p>
-        </option>
-        <option value="en">
-            <p>Fernandinho</p>
-        </option>
-    </select>
-    <div class="linkedin">
-        <a href="https://www.linkedin.com/in/fernando-cristofolini-a68405218/" target="_blank"><img style="width: 100px;border-radius: 15px;" src="./images/linkedin.jpg"/>
-            <div class="botaolkd">
-                <p><b>Ver perfil</b></p>
-            </div>
-        </a>
-    </div>
-    <div class="github">
-        <a href="https://github.com/Fe rnandoCristofolini" target="_blank"><img style="width: 100px;border-radius: 15px;" src="./images/github.png"/>
-            <div class="botaogit"> 
-                <p><b>Ver perfil</b></ p>
-            </div>
-        </a>
-    </div>
-    <div class="instagram">
-        <a href="https://www.instagram.com/fernando_uai/" target="_blank"><img style="width: 100px;border-radius: 15px;" src="./images/instagram.png"/>
-            <div class="botaoinsta">
-                <p><b>Ver perfil</b></p>
-            </div>
-        </a>
-    </div>-->
     <div class="container" >
         <div class="cabecalho">
-            <img src="./images/Eu.png">
+            <img src="./images/fernando.jpg">
             <section class="showcase">
                 <video src="./videos/title.mp4" autoplay loop muted></video>
-                <h1 class="title">Fernando Cristofolini</h1>
-                <p>Desenvolvedor Web</p>
+                <h1 id="batata" class="title">FERNANDO CRISTOFOLINI</h1>
+                <p id="batata2">Desenvolvedor Web</p>
             </section>
             <br><br>
         </div>
@@ -123,7 +93,57 @@
             
         </div>
     </div>
-    <script src="index.js">
-        
+    <script>
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const elemento = document.querySelector("#batata")
+        elemento.onmouseover = event => 
+        {
+            let iterations = 0;
+            const value = elemento.innerText
+            const interval = setInterval(() => 
+            {
+                event.target.innerText = event.target.innerText.split("")
+                .map((letter, index) => 
+                {
+                    if(index < iterations) 
+                    {
+                        return value[index];
+                    }
+                    return letters[Math.floor(Math.random() * letters.length)]
+                })
+                .join("");
+                if(iterations >= value.length)
+                {
+                    clearInterval(interval);
+                }
+                iterations += 1;
+            },30)
+        }
+
+        const elemento2 = document.querySelector("#batata2")
+        elemento2.onmouseover = event => 
+        {
+            let iterations = 0;
+            const value = elemento2.innerText
+            const interval = setInterval(() => 
+            {
+                event.target.innerText = event.target.innerText.split("")
+                .map((letter, index) => 
+                {
+                    if(index < iterations) 
+                    {
+                        return value[index];
+                    }
+                    return letters[Math.floor(Math.random() * letters.length)]
+                })
+                .join("");
+                if(iterations >= value.length)
+                {
+                    clearInterval(interval);
+                }
+                iterations += 1;
+            },30)
+        }
     </script>
 </body>
+</html>
