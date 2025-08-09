@@ -1,149 +1,134 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Fernando C</title>	
-        
-        <!-- Arquivos de CSS -->
-        <link href="./css/style.css" rel="stylesheet"/>
-    </head>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fernando Cristofolini</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
 <body>
-    <div class="container" >
-        <div class="cabecalho">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqVg_URh9Mvrm3NYaTlCUyiM7r382ohELc1g&s">
-            <section class="showcase">
-                <video src="./videos/title.mp4" autoplay loop muted></video>
-                <h1 id="batata" class="title">FERNANDO CRISTOFOLINI</h1>
-                <p id="batata2">Desenvolvedor Web</p>
-            </section>
-            <br><br>
+    <header class="cabecalho">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqVg_URh9Mvrm3NYaTlCUyiM7r382ohELc1g&s" alt="Foto Fernando Cristofolini">
+        <h1 id="nome" class="title">FERNANDO CRISTOFOLINI</h1>
+        <p id="titulo">Infraestrutura & Desenvolvimento Web</p>
+        <div class="contatos">
+            <a href="mailto:fernandocristofolini017@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://www.linkedin.com/in/fernando-cristofolini-a68405218/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/fernandocristofolini" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.instagram.com/fernando_uai/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"onclick="alert('Ainda não terminei o PDF 😢');" ><i class="fa-solid fa-file-arrow-down"></i></a>
+            <a href="https://steamcommunity.com/profiles/76561199070652032/" target="_blank"><i class="fa-brands fa-steam"></i></a>
         </div>
-        <div class="contato">
-            <br>
-        </div>
-        <div class="informacoes">
-            <div>
-                <h3 data-i18n>Perfil</h3>
-                <p style="text-align: justify;">Desenvolvedor WEB, com experiência de projetos próprios envolvendo aplicações com banco de
+    </header>
 
-                    dados relacionais e portfólios em servidores locais, com uso de HTML5, CSS, Bootstrap, PHP, MySQL
-                    
-                    MariaDB, Javascript e Java 8. Conhecimento em Flutter para desenvolvimento mobile/web, além de
-                    
-                    metodologias ágeis como Scrum, Modelo espiral e Cascata.</p>
-            </div>
-                <br>
-            <div>
-                <h3>EXPERIÊNCIA PROFISSIONAL</h3>
-                <p><b>Analista de Suporte, Tuper S/A, São Bento do Sul</b></p>
-                    <h5>Julho 2022 - Presente</h5>
-                    <p style="text-align: justify;">Suporte Técnico de infraestrutura, através de atendimentos ServiceDesk, soluções de problemas de hardware/software. 
-                        Administrador da ferramenta de comunicação e aparelhos corporativos (MDM). Gernciamento sevidores Windows.</p>
-                <p><b>Estagiário de TI, Tuper S/A, São Bento do Sul</b></p>
-                    <h5>janeiro 2022 — Julho 2022</h5>
-                <p><b>Aprendiz de TI, Tuper S/A, São Bento do Sul</b></p>
-                    <h5>janeiro 2021 — dezembro 2021</h5>
+    <main class="container">
+        <section>
+            <h2>Resumo Profissional</h2>
+            <p>
+                Profissional com ampla experiência em suporte e manutenção de infraestrutura de TI, incluindo gestão de MDM,
+                servidores Veeam (backup), sistemas de CFTV Digifort, administração de Active Directory (AD) e Exchange.
+                Experiência no gerenciamento de servidores e produtos SolidWorks, softwares Autodesk (com foco no Vault)
+                e automação de processos via scripts em batch (.bat). Atuação no suporte técnico presencial e remoto
+                via Help Desk, garantindo a resolução eficiente de problemas.
+            </p>
+            <p>
+                Conhecimento em desenvolvimento web (HTML, CSS, JavaScript), noções de banco de dados MySQL,
+                familiaridade com Java e PHP, proporcionando integração entre infraestrutura e desenvolvimento.
+                Experiência também no uso do sistema corporativo TOTVS.
+            </p>
+        </section>
 
-                <p><b>Aprendiz de Suprimentos, Tuper S/A, São Bento do Sul</b></p>
-                    <h5>janeiro 2020 — dezembro 2020</h5>
-                        <p>Utilização do sistema TOTVS Datasul para cadastro e alteração de itens e fornecedores.</p>
+        <section>
+            <h2>Experiência Profissional</h2>
+            <div class="job">
+                <h3>Analista de Suporte — <a href="https://brasil.arcelormittal.com/" target="_blank">ArcelorMittal Tuper</a></h3>
+                <span class="periodo">Julho 2022 – Presente</span>
+                <p>Suporte técnico de infraestrutura, administração de MDM, gerenciamento de servidores Windows, backup com Veeam e manutenção de CFTV Digifort.</p>
             </div>
-                <br>
-            <div>
-                <h3>FORMAÇÃO ACADÊMICA</h3>
-                <!--<p><b>Bacharelado em Engenharia de Computação, Instituto Federal Catarinense, São Bento do Sul</b></p>
-                    <p>agosto    2020 — Presente</p>-->
-                <p><b>Tecnólogo em análise e Desenvolvimento de Sistemas, Univille, Joinville</b></p>
-                    <p>julho     2021 — 2024</p>
-                <p><b>Técnico em Informática, Instituto Federal Catarinense, São Bento do Sul</b></p>
-                    <p>fevereiro 2017 — dezembro 2019</p>
-                <p><b>Assistente Administrativo, SENAI, São Bento do Sul</b></p>
-                    <p>janeiro   2021 — dezembro 2021</p>
-                <p><b>Aprendizagem Industrial em Mecânico Industrial, SENAI, São Bento do Sul</b></p>
-                    <p>janeiro   2022 — dezembro 2022</p>
+            <div class="job">
+                <h3>Estagiário de TI — <a href="https://www.tuper.com.br/" target="_blank">Tuper S/A</a></h3>
+                <span class="periodo">Jan 2022 – Jul 2022</span>
             </div>
-            <h3>COMPETÊNCIAS</h3>
-            <div class="pai">
-                <div class="item">
-                    <li>CSS</li>
-                    <li>HTML5</li>
-                    <li>JAVASCRIPT</li>
-                    <li>MDM</li>
-                </div>
-                <div class="item">
-                    <li>JAVA</li>
-                    <li>PHP</li>
-                    <li>MySQL</li>
-                    <li>Windows Server</li>
-                </div>
-                
+            <div class="job">
+                <h3>Aprendiz de TI — <a href="https://www.tuper.com.br/" target="_blank">Tuper S/A</a></h3>
+                <span class="periodo">Jan 2021 – Dez 2021</span>
             </div>
-            <div>
-                <div>
-                    <h3>OUTROS PROJETOS</h3>
-                </div>
-                <div class="loader">
-                    <div class="ball"></div>
-                    <div class="ball"></div>
-                    <div class="ball"></div>
-                    <span>Loading...</span>
-                </div>
+            <div class="job">
+                <h3>Aprendiz de Suprimentos — <a href="https://www.tuper.com.br/" target="_blank">Tuper S/A</a></h3>
+                <span class="periodo">Jan 2020 – Dez 2020</span>
+                <p>Uso do sistema TOTVS Datasul para cadastro e atualização de itens e fornecedores.</p>
             </div>
-            
-        </div>
-    </div>
+        </section>
+
+        <section class="formacao">
+            <h2>Formação Acadêmica</h2>
+            <ul>
+                <li><b>Tecnólogo em Análise e Desenvolvimento de Sistemas</b> — Univille, Joinville (2021 – 2024)</li>
+                <li><b>Técnico em Informática</b> — IFC, São Bento do Sul (2017 – 2019)</li>
+                <li><b>Assistente Administrativo</b> — SENAI, São Bento do Sul (2021)</li>
+                <li><b>Aprendizagem Industrial em Mecânica Industrial</b> — SENAI, São Bento do Sul (2022)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Competências</h2>
+            <div class="skills">
+                <span>HTML5</span>
+                <span>CSS3</span>
+                <span>JavaScript</span>
+                <span>MDM</span>
+                <span>Java</span>
+                <span>PHP</span>
+                <span>MySQL</span>
+                <span>MariaDB</span>
+                <span>Windows Server</span>
+                <span>Veeam</span>
+                <span>Digifort</span>
+                <span>Vault Server</span>
+                <span>OCS Inventory</span>
+                <span>SNL Manager</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>2025 Fernando Cristofolini</p>
+    </footer>
+
     <script>
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const elemento = document.querySelector("#batata")
-        elemento.onmouseover = event => 
-        {
-            let iterations = 0;
-            const value = elemento.innerText
-            const interval = setInterval(() => 
-            {
-                event.target.innerText = event.target.innerText.split("")
-                .map((letter, index) => 
-                {
-                    if(index < iterations) 
-                    {
-                        return value[index];
+
+        function createHoverEffect(selector) {
+            const elemento = document.querySelector(selector);
+            const originalText = elemento.innerText; 
+            let interval = null;
+
+            elemento.addEventListener("mouseover", event => {
+                clearInterval(interval); 
+                elemento.innerText = originalText; 
+                let iterations = 0;
+
+                interval = setInterval(() => {
+                    event.target.innerText = originalText
+                        .split("")
+                        .map((letter, index) => {
+                            if (index < iterations) return originalText[index];
+                            return letters[Math.floor(Math.random() * letters.length)];
+                        })
+                        .join("");
+
+                    if (iterations >= originalText.length) {
+                        clearInterval(interval);
+                        elemento.innerText = originalText; 
                     }
-                    return letters[Math.floor(Math.random() * letters.length)]
-                })
-                .join("");
-                if(iterations >= value.length)
-                {
-                    clearInterval(interval);
-                }
-                iterations += 1;
-            },30)
+                    iterations += 1;
+                }, 30);
+            });
         }
 
-        const elemento2 = document.querySelector("#batata2")
-        elemento2.onmouseover = event => 
-        {
-            let iterations = 0;
-            const value = elemento2.innerText
-            const interval = setInterval(() => 
-            {
-                event.target.innerText = event.target.innerText.split("")
-                .map((letter, index) => 
-                {
-                    if(index < iterations) 
-                    {
-                        return value[index];
-                    }
-                    return letters[Math.floor(Math.random() * letters.length)]
-                })
-                .join("");
-                if(iterations >= value.length)
-                {
-                    clearInterval(interval);
-                }
-                iterations += 1;
-            },30)
-        }
+        createHoverEffect("#nome");
+        createHoverEffect("#titulo");
     </script>
 </body>
 </html>
