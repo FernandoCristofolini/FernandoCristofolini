@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homelab — Laboratório de Infraestrutura Corporativa</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23111'/><rect x='24' y='26' width='52' height='16' rx='4' fill='%2360a5fa'/><rect x='24' y='50' width='52' height='16' rx='4' fill='%234ade80'/><rect x='24' y='74' width='52' height='10' rx='4' fill='%23555'/></svg>">
+<style>
+:root{
+  --bg:#0d1117; --panel:#161b22; --panel-2:#1c2430; --line:#2a3140;
+  --txt:#e6edf3; --muted:#8b949e;
+  --ok:#4ade80; --warn:#fbbf24; --info:#60a5fa; --roxo:#a78bfa;
+  --accent:#ff4c4c; --accent-2:#ff0000;
+  --mono:'Consolas','JetBrains Mono','Courier New',monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);
+  font-family:'Segoe UI',system-ui,sans-serif;line-height:1.55}
+
+.topo{border-bottom:1px solid var(--line);background:var(--panel);
+  padding:1rem 1.4rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.topo h1{margin:0;font-size:1.05rem}
+.topo .sub{color:var(--muted);font-size:.82rem;margin-top:.15rem}
+.selo{margin-left:auto;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.tag{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:.32rem .6rem;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.tag-obra{color:#0d1117;background:var(--warn);border-color:var(--warn)}
+.voltar{font-size:.8rem;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+  padding:.35rem .7rem;border-radius:999px;transition:.2s}
+.voltar:hover{color:#fff;border-color:var(--accent);background:var(--accent)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:1.3rem 1.4rem 3.5rem}
+.aviso{background:rgba(251,191,36,.09);border:1px solid rgba(251,191,36,.35);border-radius:8px;
+  padding:.75rem .9rem;font-size:.84rem;color:#f5d98b;margin-bottom:1.3rem}
+.aviso b{color:var(--warn)}
+
+h2.sec{font-size:.8rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);
+  margin:2.2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+h2.sec:first-of-type{margin-top:.4rem}
+
+.painel{background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.corpo{padding:1rem}
+
+/* ---------- Topologia ---------- */
+.mapa{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:1.1rem;align-items:start}
+svg.topo-svg{width:100%;height:auto;display:block}
+.no{cursor:pointer}
+.no rect{transition:.2s}
+.no:hover rect.caixa,.no.sel rect.caixa{stroke-width:2.5}
+.no .titulo{font-family:var(--mono);font-size:15px;font-weight:700;fill:#fff}
+.no .papel{font-size:11px;fill:#8b949e}
+.legenda{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.76rem;color:var(--muted);
+  padding:.7rem 1rem;border-top:1px solid var(--line)}
+.legenda span{display:inline-flex;align-items:center;gap:.4rem}
+.pill{width:14px;height:10px;border-radius:3px;display:inline-block}
+
+.detalhe h3{margin:.1rem 0 .1rem;font-size:1rem;color:#fff;font-family:var(--mono)}
+.detalhe .papel{color:var(--muted);font-size:.82rem;margin-bottom:.9rem}
+.detalhe dl{margin:0}
+.detalhe dt{font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-top:.85rem}
+.detalhe dd{margin:.2rem 0 0;font-size:.86rem}
+.detalhe ul{margin:.3rem 0 0;padding-left:1.1rem;font-size:.86rem}
+.detalhe li{margin-bottom:.25rem}
+.specs{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+
+/* ---------- Tabela GPO ---------- */
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{text-align:left;font-size:.7rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);
+  padding:.6rem .8rem;border-bottom:1px solid var(--line);background:var(--panel-2)}
+td{padding:.7rem .8rem;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.ou{font-family:var(--mono);font-size:.8rem;color:var(--info);white-space:nowrap}
+td.nome{font-weight:600;color:#fff}
+.rascunho{display:inline-block;font-size:.63rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:#0d1117;background:var(--warn);border-radius:4px;padding:.1rem .35rem;margin-left:.4rem;vertical-align:middle}
+.tabela-wrap{overflow-x:auto}
+td.ajuste{color:#c9b782;font-size:.82rem;border-left:2px solid rgba(251,191,36,.35)}
+
+/* ---------- Árvore de OUs ---------- */
+.arvore{font-family:var(--mono);font-size:.84rem;line-height:1.8;margin:0;white-space:pre;
+  overflow-x:auto;color:var(--txt)}
+.arvore .d{color:var(--muted)}
+.arvore .o{color:var(--info)}
+.arvore .n{color:var(--ok)}
+
+/* ---------- Roadmap ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.9rem}
+.card{background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:1rem}
+.card h4{margin:0 0 .3rem;font-size:.95rem;color:#fff}
+.card .st{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--warn);
+  font-weight:700;margin-bottom:.5rem}
+.card p{margin:0;font-size:.84rem;color:var(--muted)}
+
+@media (max-width:900px){ .mapa{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div>
+    <h1>Laboratório de Infraestrutura Corporativa</h1>
+    <div class="sub">Microambiente de domínio Windows/Linux em VirtualBox — projeto pessoal em evolução</div>
+  </div>
+  <div class="selo">
+    <span class="tag tag-obra">Em evolução</span>
+    <a class="voltar" href="../../index.html">← Currículo</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="aviso" id="avisoRascunho">
+    <b>Laboratório em evolução.</b> O que está descrito abaixo está implantado e validado.
+    Os cartões tracejados no diagrama e na última seção são as próximas etapas — ainda não
+    existem no ambiente.
+  </div>
+
+  <h2 class="sec">Topologia — clique em um servidor para ver os detalhes</h2>
+  <div class="mapa">
+    <div class="painel">
+      <svg class="topo-svg" viewBox="0 0 960 470" role="img" aria-label="Diagrama da topologia do laboratório">
+        <g id="linhas"></g>
+        <g id="nos"></g>
+      </svg>
+      <div class="legenda">
+        <span><i class="pill" style="background:#60a5fa"></i> Servidor Windows</span>
+        <span><i class="pill" style="background:#4ade80"></i> Servidor Linux</span>
+        <span><i class="pill" style="background:#a78bfa"></i> Estação de trabalho</span>
+        <span><i class="pill" style="background:transparent;border:1px dashed #fbbf24"></i> Planejado</span>
+      </div>
+    </div>
+
+    <div class="painel">
+      <div class="corpo detalhe" id="detalhe"></div>
+    </div>
+  </div>
+
+  <h2 class="sec">Estrutura de Unidades Organizacionais</h2>
+  <div class="painel"><div class="corpo"><pre class="arvore" id="arvore"></pre></div></div>
+
+  <h2 class="sec">Contas e grupos de segurança</h2>
+  <div class="painel"><div class="tabela-wrap"><table>
+    <thead><tr><th>Tipo de conta</th><th>Padrão</th><th>Uso</th></tr></thead>
+    <tbody id="tbContas"></tbody>
+  </table></div></div>
+  <div class="painel" style="margin-top:.9rem"><div class="tabela-wrap"><table>
+    <thead><tr><th>Grupo</th><th>Escopo</th><th>O que concede</th></tr></thead>
+    <tbody id="tbGrupos"></tbody>
+  </table></div></div>
+
+  <h2 class="sec">Políticas de grupo aplicadas</h2>
+  <div class="painel"><div class="tabela-wrap"><table>
+    <thead><tr><th>Política</th><th>Aplicada em</th><th>Configuração</th><th>Ajuste aplicado</th></tr></thead>
+    <tbody id="tbGpo"></tbody>
+  </table></div></div>
+
+  <h2 class="sec">File server — as duas camadas de permissão</h2>
+  <div class="painel"><div class="tabela-wrap"><table>
+    <thead><tr><th>Camada</th><th>Quem</th><th>Nível</th><th>Por quê</th></tr></thead>
+    <tbody id="tbNtfs"></tbody>
+  </table></div></div>
+
+  <h2 class="sec">Próximas etapas do laboratório</h2>
+  <div class="cards" id="roadmap"></div>
+
+</div>
+
+<script>
+/* =========================================================================
+   TUDO O QUE APARECE NA PÁGINA VEM DAS LISTAS ABAIXO.
+   Para lapidar o conteúdo, edite apenas estes blocos — o desenho da topologia,
+   as tabelas e os cartões se remontam sozinhos.
+
+   NOS:  x/y são as coordenadas dentro do viewBox 0 0 960 470.
+         tipo: 'win' | 'linux' | 'wks' | 'host' | 'plan'
+         curto: rótulo que aparece na caixa do diagrama (mantenha curto).
+         Para adicionar uma máquina, copie um objeto e ajuste x/y.
+   ========================================================================= */
+
+const NOS = [
+  {
+    id:'HOST', tipo:'host', x:360, y:26, w:240, h:64,
+    titulo:'HOST — VirtualBox', curto:'Hipervisor',
+    papel:'Hipervisor do laboratório',
+    specs:'Rede interna · pasta compartilhada host/VM',
+    config:[
+      'Rede interna isolando o domínio do restante da rede doméstica.',
+      'Pasta compartilhada entre a máquina física e as VMs, com <span class="specs">Montar Automaticamente</span> e <span class="specs">Tornar Permanente</span>.',
+      'Guest Additions instalado manualmente via <span class="specs">VBoxWindowsAdditions.exe</span> no drive virtual, habilitando a integração de rede e o mapeamento das pastas locais.'
+    ]
+  },
+  {
+    id:'DC', tipo:'win', x:80, y:190, w:180, h:70,
+    titulo:'DC', curto:'AD DS · DNS · GPO',
+    papel:'Controlador de domínio · DNS · GPO',
+    specs:'Windows Server · domínio fernando.com',
+    config:[
+      'Floresta e domínio <span class="specs">fernando.com</span>, com DNS integrado ao AD.',
+      'OUs separadas por função: <span class="specs">Computadores</span>, <span class="specs">Servidores</span> e <span class="specs">Usuarios</span> (com subdivisão entre contas comuns e administrativas).',
+      'Contas nominais no lugar da conta nativa, e sufixo <span class="specs">.admin</span> para as credenciais com privilégio em servidores.',
+      'Grupos de segurança por escopo de administração: <span class="specs">Admins_Servers</span>, <span class="specs">Admins_Desktops</span> e <span class="specs">Admin - DFS</span>.',
+      'Objetos protegidos contra exclusão acidental — remoção de OU exige liberar a opção pela visualização <span class="specs">Advanced Features</span>.'
+    ]
+  },
+  {
+    id:'WS22DFS01', tipo:'win', x:290, y:190, w:180, h:70,
+    titulo:'WS22DFS01', curto:'File Server · DFS',
+    papel:'Servidor de arquivos · DFS',
+    specs:'Windows Server · compartilhamento Shares',
+    config:[
+      'Compartilhamento <span class="specs">Shares</span>, entregue às estações como unidade <span class="specs">Z:</span> por GPO.',
+      'Permissão de compartilhamento aberta para <span class="specs">Everyone</span> com Controle Total; toda a restrição fica na camada NTFS.',
+      'Usuários comuns (<span class="specs">Domain Users</span>) limitados a <span class="specs">Modificar</span>.',
+      '<span class="specs">Admin - DFS</span> com Controle Total, aplicado a esta pasta, subpastas e arquivos.'
+    ]
+  },
+  {
+    id:'SRV-LNX', tipo:'plan', x:710, y:190, w:180, h:70,
+    titulo:'SRV-LNX', curto:'Zabbix + Grafana',
+    papel:'Zabbix + Grafana (planejado)',
+    specs:'Ainda não implantado',
+    config:[
+      'Zabbix coletando disponibilidade e recursos das VMs.',
+      'Grafana como camada de painéis sobre os dados do Zabbix.',
+      'Alerta por gatilho nos serviços críticos do domínio.'
+    ]
+  },
+  {
+    id:'WKS01', tipo:'wks', x:195, y:350, w:160, h:62,
+    titulo:'WKS01', curto:'Estação no domínio',
+    papel:'Estação ingressada no domínio',
+    specs:'Windows 10/11 · OU Computadores',
+    config:[
+      'Ingressada no domínio e posicionada na OU <span class="specs">Computadores</span>.',
+      'Recebe as cinco GPOs: papel de parede, administração local, mapeamento do Z:, bloqueio de tela.',
+      'Login com conta nominal, sem privilégio administrativo local — a administração vem do grupo <span class="specs">Admins_Desktops</span>.'
+    ]
+  },
+  {
+    id:'WKS02', tipo:'wks', x:405, y:350, w:160, h:62,
+    titulo:'WKS02', curto:'Estação de teste',
+    papel:'Estação de teste',
+    specs:'Windows 10/11 · OU Computadores',
+    config:[
+      'Usada para validar política nova antes de aplicar na OU inteira.',
+      'Ciclo de validação com <span class="specs">gpupdate /force</span> e conferência do resultado na ponta.'
+    ]
+  },
+  {
+    id:'OCS', tipo:'linux', x:500, y:190, w:180, h:70,
+    titulo:'OCS', curto:'OCS Inventory',
+    papel:'Servidor Linux · OCS Inventory',
+    specs:'Linux · OCS Inventory Server',
+    config:[
+      'Servidor de inventário coletando hardware e software das estações.',
+      'Agente distribuído por GPO.'
+    ]
+  }
+];
+
+const OUS = `fernando.com
+├── Computadores          (WKS01, WKS02)
+├── Servidores            (WS22DFS01)
+├── Usuarios
+│   ├── Users             contas nominais de uso diário
+│   └── Administradores   contas com sufixo .admin
+└── Domain Controllers`;
+
+const GRUPOS = [
+  { nome:'Admins_Servers',  escopo:'Servidores',
+    faz:'Administração local dos servidores e direito de logon local e por RDP neles.' },
+  { nome:'Admins_Desktops', escopo:'Estações Windows 10/11',
+    faz:'Administração local das estações de trabalho, sem alcance sobre a infraestrutura de servidores.' },
+  { nome:'Admin - DFS',     escopo:'File server',
+    faz:'Gerenciamento do servidor de arquivos e alteração de segurança e permissões NTFS.' }
+];
+
+const CONTAS = [
+  { tipo:'Conta nativa',        exemplo:'administrator',
+    uso:'Guardada como conta de emergência. Não é usada na operação do dia a dia.' },
+  { tipo:'Conta nominal',       exemplo:'nome.sobrenome',
+    uso:'Login diário do usuário, sem privilégio administrativo local.' },
+  { tipo:'Conta administrativa',exemplo:'nome.sobrenome.admin',
+    uso:'Usada apenas para administrar servidores, via grupo Admins_Servers.' }
+];
+
+const GPOS = [
+  { nome:'Padronização de papel de parede', ou:'Usuarios/Users<br>Usuarios/Administradores',
+    faz:'<span class="specs">User Configuration › Policies › Administrative Templates › Desktop › Desktop Wallpaper</span> apontando para as imagens em <span class="specs">\\\\fernando.com\\NETLOGON</span>.',
+    nota:'Falhou quando vinculada à OU de Computadores: política de usuário não se aplica a objeto de computador sem Loopback Processing. Resolvido vinculando às OUs de usuários.',
+    rascunho:false },
+  { nome:'Administração local controlada', ou:'Computadores<br>Servidores',
+    faz:'<span class="specs">Computer Configuration › Preferences › Control Panel Settings › Local Users and Groups</span>. O grupo <span class="specs">Administrators</span> local é limpo e repovoado: nas estações com <span class="specs">Admins_Desktops</span>, nos servidores com <span class="specs">Admins_Servers</span>, mais Domain Admins e a conta nativa.',
+    nota:'Limpar os membros anteriores é o que faz a política valer: sem isso, quem já era admin local continua sendo, e a padronização não fecha.',
+    rascunho:false },
+  { nome:'Segregação de logon e RDP', ou:'Servidores',
+    faz:'<span class="specs">User Rights Assignment</span> — <span class="specs">Allow log on locally</span> e <span class="specs">Allow log on through Remote Desktop Services</span> restritos a Administrators e <span class="specs">Admins_Servers</span>.',
+    nota:'Fecha o ciclo da segregação: sem esse direito, a conta nominal simplesmente não entra no servidor, mesmo que alguém a coloque em outro grupo por engano.',
+    rascunho:false },
+  { nome:'Mapeamento da unidade Z:', ou:'Usuarios',
+    faz:'<span class="specs">User Configuration › Preferences › Windows Settings › Drive Maps</span>, ação <span class="specs">Update</span>, apontando <span class="specs">\\\\WS22DFS01\\Shares</span> na letra <span class="specs">Z:</span>.',
+    nota:'A opção Reconnect torna o mapeamento persistente no perfil (equivalente ao /persistent:yes do net use), garantindo a montagem a cada reinício sem depender de script de logon no NETLOGON.',
+    rascunho:false },
+  { nome:'Bloqueio de tela por inatividade', ou:'Computadores',
+    faz:'<span class="specs">Security Options › Interactive logon: Machine inactivity limit</span> definido em 600 segundos.',
+    nota:'Dez minutos equilibra segurança e atrito: curto o bastante para cobrir a mesa vazia, longo o bastante para não irritar quem está lendo algo na tela.',
+    rascunho:false }
+];
+
+const NTFS = [
+  { camada:'Compartilhamento (Share)', quem:'Everyone', nivel:'Controle Total',
+    porque:'Camada deliberadamente aberta para que a permissão efetiva seja decidida só pelo NTFS.' },
+  { camada:'NTFS', quem:'Domain Users', nivel:'Modificar',
+    porque:'Usuário comum cria, edita e apaga arquivo, mas não altera a segurança da pasta.' },
+  { camada:'NTFS', quem:'Admin - DFS', nivel:'Controle Total',
+    porque:'Aplicado a esta pasta, subpastas e arquivos — é o grupo que administra o file server.' },
+  { camada:'NTFS (avançado)', quem:'CREATOR OWNER', nivel:'Modificar (era Controle Total)',
+    porque:'Ajuste que resolveu o problema central: com Controle Total, o usuário virava dono da pasta que acabara de criar e podia reescrever a segurança dela.' }
+];
+
+const ROADMAP = [
+  { titulo:'Zabbix + Grafana', status:'Próxima etapa',
+    texto:'Monitoramento de disponibilidade e recursos das VMs no servidor SRV-LNX, com painéis no Grafana e alertas por gatilho nos serviços do domínio.' }
+];
+
+/* =========================================================================
+   Daqui para baixo é só renderização — normalmente não precisa mexer.
+   ========================================================================= */
+const CORES = {
+  host : { borda:'#8b949e', fundo:'#1c2430', trac:false },
+  win  : { borda:'#60a5fa', fundo:'#16202e', trac:false },
+  linux: { borda:'#4ade80', fundo:'#15241c', trac:false },
+  wks  : { borda:'#a78bfa', fundo:'#1e1b2e', trac:false },
+  plan : { borda:'#fbbf24', fundo:'#221d10', trac:true  }
+};
+const NS = 'http://www.w3.org/2000/svg';
+const el = (t,a={}) => { const e = document.createElementNS(NS,t);
+  for (const k in a) e.setAttribute(k,a[k]); return e; };
+const centro = n => n.x + n.w/2;
+
+/* --- linhas: barramento da rede interna + conexões --- */
+(function desenhaLinhas(){
+  const g = document.getElementById('linhas');
+  const barra = 150;
+  const host = NOS.find(n => n.tipo === 'host');
+
+  g.appendChild(el('line',{x1:100,y1:barra,x2:860,y2:barra,stroke:'#2a3140','stroke-width':3}));
+  const rot = el('text',{x:104,y:barra-10,fill:'#8b949e','font-size':12,
+    'font-family':'Consolas,monospace'});
+  rot.textContent = 'rede interna do laboratorio';
+  g.appendChild(rot);
+
+  if (host) g.appendChild(el('line',{x1:centro(host),y1:host.y+host.h,x2:centro(host),y2:barra,
+    stroke:'#2a3140','stroke-width':3}));
+
+  NOS.filter(n => n.tipo !== 'host').forEach(n => {
+    const c = centro(n);
+    const tracejado = CORES[n.tipo].trac ? { 'stroke-dasharray':'6 5' } : {};
+    g.appendChild(el('line',Object.assign({x1:c,y1:barra,x2:c,y2:n.y,
+      stroke:CORES[n.tipo].borda,'stroke-width':2,opacity:.55}, tracejado)));
+  });
+})();
+
+/* --- nós clicáveis --- */
+(function desenhaNos(){
+  const g = document.getElementById('nos');
+  NOS.forEach(n => {
+    const c = CORES[n.tipo];
+    const grupo = el('g',{class:'no',tabindex:'0',role:'button','data-id':n.id});
+    const caixa = el('rect',{class:'caixa',x:n.x,y:n.y,width:n.w,height:n.h,rx:9,
+      fill:c.fundo,stroke:c.borda,'stroke-width':1.5});
+    if (c.trac) caixa.setAttribute('stroke-dasharray','7 5');
+    grupo.appendChild(caixa);
+
+    const t = el('text',{class:'titulo',x:n.x+14,y:n.y+30});
+    t.textContent = n.titulo;
+    grupo.appendChild(t);
+
+    // rotulo curto: cabe na caixa sem estourar (aprox. 5.9px por caractere a 11px)
+    const limite = Math.floor((n.w - 28) / 5.9);
+    const rotulo = n.curto || n.papel;
+    const p = el('text',{class:'papel',x:n.x+14,y:n.y+48});
+    p.textContent = rotulo.length > limite ? rotulo.slice(0, limite - 1) + '…' : rotulo;
+    grupo.appendChild(p);
+
+    grupo.addEventListener('click', () => seleciona(n.id));
+    grupo.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); seleciona(n.id); }
+    });
+    g.appendChild(grupo);
+  });
+})();
+
+function seleciona(id){
+  const n = NOS.find(x => x.id === id);
+  document.querySelectorAll('.no').forEach(g =>
+    g.classList.toggle('sel', g.dataset.id === id));
+
+  const d = document.getElementById('detalhe');
+  const planejado = n.tipo === 'plan';
+  d.innerHTML = `
+    <h3>${n.titulo}</h3>
+    <div class="papel">${n.papel}</div>
+    ${planejado ? '<span class="rascunho">não implantado</span>' : ''}
+    <dl>
+      <dt>Recursos</dt><dd class="specs">${n.specs}</dd>
+      <dt>Configuração</dt>
+      <dd><ul>${n.config.map(c => `<li>${c}</li>`).join('')}</ul></dd>
+    </dl>`;
+}
+
+/* --- OUs, GPOs e roadmap --- */
+document.getElementById('arvore').innerHTML = OUS
+  .replace(/([├└│─]+)/g, '<span class="d">$1</span>')
+  .replace(/^(fernando\.com)$/m, '<span class="n">$1</span>')
+  .replace(/\b(Computadores|Servidores|Usuarios|Users|Administradores|Domain Controllers)\b/g,
+           '<span class="o">$1</span>');
+
+document.getElementById('tbContas').innerHTML = CONTAS.map(c => `
+  <tr>
+    <td class="nome">${c.tipo}</td>
+    <td class="ou">${c.exemplo}</td>
+    <td>${c.uso}</td>
+  </tr>`).join('');
+
+document.getElementById('tbGrupos').innerHTML = GRUPOS.map(g => `
+  <tr>
+    <td class="ou">${g.nome}</td>
+    <td>${g.escopo}</td>
+    <td>${g.faz}</td>
+  </tr>`).join('');
+
+document.getElementById('tbGpo').innerHTML = GPOS.map(g => `
+  <tr>
+    <td class="nome">${g.nome}${g.rascunho ? '<span class="rascunho">rascunho</span>' : ''}</td>
+    <td class="ou">${g.ou}</td>
+    <td>${g.faz}</td>
+    <td class="ajuste">${g.nota}</td>
+  </tr>`).join('');
+
+document.getElementById('tbNtfs').innerHTML = NTFS.map(n => `
+  <tr>
+    <td class="nome">${n.camada}</td>
+    <td class="ou">${n.quem}</td>
+    <td>${n.nivel}</td>
+    <td>${n.porque}</td>
+  </tr>`).join('');
+
+document.getElementById('roadmap').innerHTML = ROADMAP.map(c => `
+  <div class="card">
+    <div class="st">${c.status}</div>
+    <h4>${c.titulo}</h4>
+    <p>${c.texto}</p>
+  </div>`).join('');
+
+seleciona('DC');
+</script>
+</body>
+</html>
