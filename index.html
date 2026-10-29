@@ -1,126 +1,399 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fernando Cristofolini</title>
+    <meta name="description" content="Fernando Cristofolini — IT Infrastructure &amp; Automation">
+    <script>
+        /* Aplica tema salvo (ou do sistema) antes de desenhar a página, evitando piscar */
+        (function () {
+            var t = null;
+            try { t = localStorage.getItem("cv-theme"); } catch (e) {}
+            if (t !== "light" && t !== "dark") {
+                t = (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light";
+            }
+            document.documentElement.setAttribute("data-theme", t);
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <header class="cabecalho">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqVg_URh9Mvrm3NYaTlCUyiM7r382ohELc1g&s" alt="Foto Fernando Cristofolini">
-        <h1 id="nome" class="title">FERNANDO CRISTOFOLINI</h1>
-        <p id="titulo">Infraestrutura & Desenvolvimento Web</p>
-        <div class="contatos">
-            <a href="mailto:fernandocristofolini017@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-            <a href="https://www.linkedin.com/in/fernando-cristofolini-a68405218/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://github.com/fernandocristofolini" target="_blank"><i class="fa-brands fa-github"></i></a>
-            <a href="#"onclick="alert('Ainda não terminei o PDF 😢');" ><i class="fa-solid fa-file-arrow-down"></i></a>
+    <div class="controles">
+        <button id="btnLang" type="button" title="Português" aria-label="Português">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+            <span id="labelLang">PT</span>
+        </button>
+        <button id="btnTheme" type="button" title="Dark theme" aria-label="Dark theme">
+            <svg class="ico" id="icoSol" viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 17a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zM4.22 4.22a1 1 0 0 1 1.42 0l1.41 1.41a1 1 0 0 1-1.41 1.42L4.22 5.64a1 1 0 0 1 0-1.42zm12.73 12.73a1 1 0 0 1 1.41 0l1.42 1.41a1 1 0 0 1-1.42 1.42l-1.41-1.42a1 1 0 0 1 0-1.41zM2 12a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1zm17 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM4.22 19.78a1 1 0 0 1 0-1.42l1.41-1.41a1 1 0 0 1 1.42 1.41l-1.42 1.42a1 1 0 0 1-1.41 0zM16.95 7.05a1 1 0 0 1 0-1.42l1.41-1.41a1 1 0 1 1 1.42 1.41l-1.42 1.42a1 1 0 0 1-1.41 0z"/></svg>
+            <svg class="ico" id="icoLua" viewBox="0 0 24 24"><path d="M21 14.5A9 9 0 0 1 9.5 3a.5.5 0 0 0-.65-.6A10 10 0 1 0 21.6 15.15a.5.5 0 0 0-.6-.65z"/></svg>
+        </button>
+        <a id="btnPdf" href="./Curriculo_Fernando_Cristofolini.pdf" download title="Download PDF" aria-label="Download PDF">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z"/></svg>
+            <span>PDF</span>
+        </a>
+    </div>
+
+    <div class="folha">
+        <header class="cabecalho">
+            <h1 id="nome">Fernando Cristofolini</h1>
+            <p class="cargo" id="titulo" data-i18n="role">IT Infrastructure &amp; Automation</p>
+            <div class="contatos">
+                <a href="mailto:fernandocristofolini017@gmail.com">
+                    <svg class="ico" viewBox="0 0 24 24"><path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h17A1.5 1.5 0 0 1 22 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 18.5v-13zm2.3.5L12 11.6 19.7 6H4.3zM20 7.6l-7.4 5.4a1 1 0 0 1-1.2 0L4 7.6V18h16V7.6z"/></svg>
+                    fernandocristofolini017@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/fernando-cristofolini-a68405218/" target="_blank" rel="noopener">
+                    <svg class="ico" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>
+                    linkedin.com/in/fernando-cristofolini-a68405218
+                </a>
+                <a href="https://github.com/fernandocristofolini" target="_blank" rel="noopener">
+                    <svg class="ico" viewBox="0 0 24 24"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3"/></svg>
+                    github.com/fernandocristofolini
+                </a>
+            </div>
+        </header>
+
+        <div class="grade">
+            <main>
+                <section>
+                    <h2 data-i18n="h.summary">Professional Summary</h2>
+                    <p data-i18n="sum.p1">IT Support and Infrastructure Analyst with experience managing large corporate environments, with more than 1,000 endpoints and 100 servers under management. Degree in Systems Analysis and Development from Univille, focused on routine automation, SLA reduction and systems integration. Solid background in Windows Server, Linux and Active Directory administration.</p>
+                    <p data-i18n="sum.p2">I apply AI, programming logic and scripting (CMD/Batch and PowerShell/JavaScript fundamentals) to build in-house solutions such as web platforms for remote management and integrations for Zero-Touch provisioning. Analytical profile focused on operational efficiency.</p>
+                </section>
+
+                <section>
+                    <h2 data-i18n="h.experience">Professional Experience</h2>
+
+                    <div class="cargo-item atual">
+                        <div class="item-topo">
+                            <span class="item-titulo" data-i18n="job1.role">IT Support Analyst</span>
+                            <span class="periodo" data-i18n="job1.period">Jul 2022 – Present</span>
+                        </div>
+                        <div class="empresa"><a href="https://brasil.arcelormittal.com/" target="_blank" rel="noopener">ArcelorMittal Tuper</a></div>
+                        <ul>
+                            <li data-i18n="job1.li1">N1, N2 and N3 technical support in an environment with over 1,000 endpoints and 100 Windows and Linux servers.</li>
+                            <li data-i18n="job1.li2">Administration of Active Directory, DFS, GPOs, Microsoft 365, Entra ID (Azure AD) and Exchange.</li>
+                            <li data-i18n="job1.li3">Automation of operational routines with Batch and PowerShell scripts, eliminating manual remote access.</li>
+                            <li data-i18n="job1.li4">MDM management (IBM MaaS360) and endpoint security (SentinelOne and BlackBerry Cylance).</li>
+                            <li data-i18n="job1.li5">Administration of the Neomind Fusion platform (BPMS) and development of processes and workflows.</li>
+                            <li data-i18n="job1.li6">Administration of the Digifort CCTV system and asset inventory with OCS Inventory.</li>
+                            <li data-i18n="job1.li7">Support for engineering systems (SolidWorks, DraftSight, AutoCAD/Vault) and TOTVS ERP.</li>
+                            <li data-i18n="job1.li8">Design of automated service workflows via corporate WhatsApp API chatbot.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cargo-item">
+                        <div class="item-topo">
+                            <span class="item-titulo" data-i18n="job2.role">IT Intern</span>
+                            <span class="periodo" data-i18n="job2.period">Jan 2022 – Jul 2022</span>
+                        </div>
+                        <div class="empresa"><a href="https://www.tuper.com.br/" target="_blank" rel="noopener">Tuper S/A</a></div>
+                    </div>
+
+                    <div class="cargo-item">
+                        <div class="item-topo">
+                            <span class="item-titulo" data-i18n="job3.role">IT Apprentice</span>
+                            <span class="periodo" data-i18n="job3.period">Jan 2021 – Dec 2021</span>
+                        </div>
+                        <div class="empresa"><a href="https://www.tuper.com.br/" target="_blank" rel="noopener">Tuper S/A</a></div>
+                    </div>
+
+                    <div class="cargo-item">
+                        <div class="item-topo">
+                            <span class="item-titulo" data-i18n="job4.role">Procurement Apprentice</span>
+                            <span class="periodo" data-i18n="job4.period">Jan 2020 – Dec 2020</span>
+                        </div>
+                        <div class="empresa"><a href="https://www.tuper.com.br/" target="_blank" rel="noopener">Tuper S/A</a></div>
+                    </div>
+                </section>
+            </main>
+
+            <aside>
+                <section>
+                    <h2 data-i18n="h.skills">Skills</h2>
+
+                    <div class="grupo">
+                        <div class="grupo-titulo" data-i18n="sk.infra">Infrastructure &amp; Systems</div>
+                        <div class="chips">
+                            <span>Windows Server</span><span>Linux</span><span>Active Directory</span><span>GPO</span><span>DFS</span><span>Entra ID (Azure AD)</span><span>Microsoft 365</span><span>Exchange</span><span>VirtualBox</span><span>Digifort</span><span>Vault Server</span>
+                        </div>
+                    </div>
+
+                    <div class="grupo">
+                        <div class="grupo-titulo" data-i18n="sk.dev">Automation &amp; Development</div>
+                        <div class="chips">
+                            <span>CMD / Batch</span><span data-i18n="chip.ps">PowerShell (fundamentals)</span><span>PsExec</span><span data-i18n="chip.ai">Applied AI</span><span data-i18n="chip.logic">Programming Logic</span><span>HTML5</span><span>CSS3</span><span data-i18n="chip.js">JavaScript (fundamentals)</span><span>MySQL / MariaDB</span><span data-i18n="chip.integration">Systems Integration</span>
+                        </div>
+                    </div>
+
+                    <div class="grupo">
+                        <div class="grupo-titulo" data-i18n="sk.support">Support &amp; Corporate Tools</div>
+                        <div class="chips">
+                            <span data-i18n="chip.support">N1/N2/N3 Support</span><span>Neomind Fusion (BPMS)</span><span>MDM IBM MaaS360</span><span>SentinelOne</span><span>BlackBerry Cylance</span><span>OCS Inventory</span><span>SNL Manager</span><span>TOTVS</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 data-i18n="h.languages">Languages</h2>
+                    <div class="idioma"><b data-i18n="lang.pt">Portuguese</b><span data-i18n="lang.pt.lvl">Native</span></div>
+                    <div class="idioma"><b data-i18n="lang.en">English</b><span data-i18n="lang.en.lvl">Intermediate (B1)</span></div>
+                </section>
+            </aside>
         </div>
-    </header>
 
-    <main class="container">
-        <section>
-            <h2>Resumo Profissional</h2>
-            <p>
-Profissional de infraestrutura de TI com experiência em suporte e administração de ambientes corporativos de grande porte, atuando no gerenciamento de servidores Windows e Linux. Especialista em automação de rotinas via scripts (Batch e PowerShell) e gerenciamento de políticas de grupo (GPOs). Sólida vivência na administração de serviços como Active Directory, DFS, Microsoft 365, Azure AD e Exchange, segurança de endpoint (SentinelOne e BlackBerry Cylance) e gerenciamento de dispositivos móveis (MDM IBM MaaS360). Experiência no suporte técnico N1, N2 e N3, desenvolvimento de processos e administração da plataforma Neomind Fusion, além de sustentação de sistemas de engenharia (SolidWorks, DraftSight, Autodesk AutoCAD/Vault) e ERP TOTVS. Também possuo experiência em estruturação de fluxos de atendimento automatizados via chatbot para WhatsApp API corporativo.    
-            </p>
-            <p>
-             Conhecimento em desenvolvimento web (HTML, CSS, JavaScript), noções de banco de dados MySQL, familiaridade com Java e PHP, proporcionando integração entre infraestrutura e desenvolvimento.   
-            </p>
-        </section>
+        <section class="bloco">
+            <h2 data-i18n="h.projects">Projects &amp; Automations</h2>
 
-        <section>
-            <h2>Experiência Profissional</h2>
-            <div class="job">
-                <h3>Analista de Suporte — <a href="https://brasil.arcelormittal.com/" target="_blank">ArcelorMittal Tuper</a></h3>
-                <span class="periodo">Julho 2022 – Presente</span>
-                <p>Suporte técnico de infraestrutura, administração de MDM, gerenciamento de servidores Windows, backup com Veeam e manutenção de CFTV Digifort.</p>
+            <div class="projeto">
+                <div class="item-topo">
+                    <span class="item-titulo" data-i18n="p1.title">AUTOEXEC IT v2 — IT Automation Web Platform</span>
+                    <span class="periodo" data-i18n="p1.period">Tuper · 2026</span>
+                </div>
+                <ul>
+                    <li data-i18n="p1.li1"><b>Design and architecture:</b> conceived and structured the logic of a corporate web platform for IT self-service and automation, with a native HTTP server, JSON file persistence and remote task execution.</li>
+                    <li data-i18n="p1.li2"><b>AI-assisted development:</b> used programming logic and prompt engineering (LLMs) to model, generate and debug modules in PowerShell (runspaces, HTTP server) and vanilla JavaScript.</li>
+                    <li data-i18n="p1.li3"><b>Frontend:</b> interface built with HTML/CSS and a custom design system, streaming logs to the browser in real time.</li>
+                    <li data-i18n="p1.li4"><b>Integration and security:</b> authentication integrated with Active Directory (group-based RBAC), remote execution via PsExec and inventory collection through CIM/WinRM.</li>
+                    <li data-i18n="p1.li5"><b>Impact:</b> 291 executions with a 98.3% success rate in the pilot phase; replaced a ~4,000-line legacy script and added observability through structured JSONL logs.</li>
+                </ul>
             </div>
-            <div class="job">
-                <h3>Estagiário de TI — <a href="https://www.tuper.com.br/" target="_blank">Tuper S/A</a></h3>
-                <span class="periodo">Jan 2022 – Jul 2022</span>
-            </div>
-            <div class="job">
-                <h3>Aprendiz de TI — <a href="https://www.tuper.com.br/" target="_blank">Tuper S/A</a></h3>
-                <span class="periodo">Jan 2021 – Dez 2021</span>
-            </div>
-            <div class="job">
-                <h3>Aprendiz de Suprimentos — <a href="https://www.tuper.com.br/" target="_blank">Tuper S/A</a></h3>
-                <span class="periodo">Jan 2020 – Dez 2020</span>
-                <p>Uso do sistema TOTVS Datasul para cadastro e atualização de itens e fornecedores.</p>
-            </div>
-        </section>
 
-        <section class="formacao">
-            <h2>Formação Acadêmica</h2>
-            <ul>
-                <li><b>Tecnólogo em Análise e Desenvolvimento de Sistemas</b> — Univille, Joinville (2021 – 2024)</li>
-                <li><b>Técnico em Informática</b> — IFC, São Bento do Sul (2017 – 2019)</li>
-                <li><b>Assistente Administrativo</b> — SENAI, São Bento do Sul (2021)</li>
-                <li><b>Aprendizagem Industrial em Mecânica Industrial</b> — SENAI, São Bento do Sul (2022)</li>
-            </ul>
-        </section>
+            <div class="projeto">
+                <div class="item-topo">
+                    <span class="item-titulo" data-i18n="p3.title">Zero-Touch Internet Access Provisioning (Fusion + AD)</span>
+                    <span class="periodo" data-i18n="p3.period">Tuper</span>
+                </div>
+                <ul>
+                    <li data-i18n="p3.li1"><b>PowerShell development:</b> script that processes the files generated by Neomind Fusion after managerial approval of the request.</li>
+                    <li data-i18n="p3.li2"><b>Identity and firewall management:</b> automatic insertion of the user into the Active Directory security groups tied to the firewall rules (social media, YouTube, shopping, etc.).</li>
+                    <li data-i18n="p3.li3"><b>Fault tolerance:</b> scheduled to run every 5 minutes, with multiple passes inside Fusion's 20-minute window, ensuring the access is granted and the processed record is archived.</li>
+                    <li data-i18n="p3.li4"><b>Impact:</b> removed the manual work of picking up the ticket, applying the permission in AD and advancing the task in the system.</li>
+                </ul>
+            </div>
 
-        <section>
-            <h2>Competências</h2>
-            <div class="skills">
-                <span>HTML5</span>
-                <span>CSS3</span>
-                <span>JavaScript</span>
-                <span>MDM</span>
-                <span>Java</span>
-                <span>PHP</span>
-                <span>MySQL</span>
-                <span>MariaDB</span>
-                <span>Windows Server</span>
-                <span>Veeam</span>
-                <span>Digifort</span>
-                <span>Vault Server</span>
-                <span>OCS Inventory</span>
-                <span>SNL Manager</span>
+            <div class="projeto">
+                <div class="item-topo">
+                    <span class="item-titulo" data-i18n="p4.title">Unified Installer &amp; PsExec Menu</span>
+                    <span class="periodo" data-i18n="p4.period">Tuper · 2024 – 2026</span>
+                </div>
+                <ul>
+                    <li data-i18n="p4.li1"><b>Unified Installer (Prog Cert):</b> Batch automation to standardize corporate software installation, with over 500 executions recorded in logs — roughly 30 minutes of manual work eliminated per machine.</li>
+                    <li data-i18n="p4.li2"><b>Unified PsExec Menu:</b> remote task console (Office 365 and Power BI installation, service restarts, drive mappings, message broadcast) used by the whole support team, saving approximately 13.8 operational hours in just over a month of documented use.</li>
+                </ul>
+            </div>
+
+            <div class="projeto">
+                <div class="item-topo">
+                    <span class="item-titulo" data-i18n="p2.title">Corporate Infrastructure Lab (Homelab)</span>
+                    <span class="item-lado">
+                        <span class="periodo" data-i18n="p2.period">Personal project</span>
+                        <a class="btn-demo" href="./demos/homelab/index.html" target="_blank" rel="noopener">
+                            <svg class="ico" viewBox="0 0 24 24"><path d="M14 3a1 1 0 1 0 0 2h3.59l-8.3 8.29a1 1 0 1 0 1.42 1.42L19 6.41V10a1 1 0 1 0 2 0V4a1 1 0 0 0-1-1h-6zM5 5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 1 0-2 0v5H5V7h5a1 1 0 1 0 0-2H5z"/></svg>
+                            <span data-i18n="demo.btn">View demo</span>
+                        </a>
+                    </span>
+                </div>
+                <ul>
+                    <li data-i18n="p2.li1"><b>Virtualization:</b> corporate micro-environment on VirtualBox, with Windows and Linux servers configured and maintained.</li>
+                    <li data-i18n="p2.li2"><b>Identity and access:</b> Active Directory with separation between named accounts and administrative credentials.</li>
+                    <li data-i18n="p2.li3"><b>Storage:</b> DFS setup and domain join of the virtual machines.</li>
+                    <li data-i18n="p2.li4"><b>Governance:</b> creation and validation of GPOs applied per Organizational Unit to standardize endpoints.</li>
+                </ul>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>2025 Fernando Cristofolini</p>
-    </footer>
+        <section class="bloco">
+            <h2 data-i18n="h.education">Education</h2>
+            <div class="formacao">
+                <div>
+                    <div class="curso" data-i18n="edu1.t">Technologist in Systems Analysis and Development</div>
+                    <div class="curso-info">Univille · Joinville · 2021 – 2024</div>
+                </div>
+                <div>
+                    <div class="curso" data-i18n="edu2.t">Technical Degree in Information Technology</div>
+                    <div class="curso-info">IFC · São Bento do Sul · 2017 – 2019</div>
+                </div>
+                <div>
+                    <div class="curso" data-i18n="edu4.t">Industrial Apprenticeship in Industrial Mechanics</div>
+                    <div class="curso-info">SENAI · São Bento do Sul · 2022</div>
+                </div>
+                <div>
+                    <div class="curso" data-i18n="edu3.t">Administrative Assistant</div>
+                    <div class="curso-info">SENAI · São Bento do Sul · 2021</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>© 2026 Fernando Cristofolini</footer>
 
     <script>
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    /* ============ Traduções (PT). O HTML já está em inglês. ============ */
+    const I18N = {
+        pt: {
+            "role": "Infraestrutura de TI &amp; Automação",
 
-        function createHoverEffect(selector) {
-            const elemento = document.querySelector(selector);
-            const originalText = elemento.innerText; 
-            let interval = null;
+            "h.summary": "Resumo profissional",
+            "sum.p1": "Analista de Suporte de TI e Infraestrutura com experiência na administração de ambientes corporativos de grande porte, com mais de 1.000 endpoints e 100 servidores sob gestão. Formado em Análise e Desenvolvimento de Sistemas pela Univille, com foco em automação de rotinas, redução de SLA e integração de sistemas. Sólida vivência em administração de Windows Server, Linux e Active Directory.",
+            "sum.p2": "Utilizo IA aplicada, lógica de programação e scripting (CMD/Batch e fundamentos de PowerShell/JavaScript) para desenvolver soluções internas, como plataformas web de gestão remota e integrações para provisionamento Zero-Touch. Perfil analítico e focado em eficiência operacional.",
 
-            elemento.addEventListener("mouseover", event => {
-                clearInterval(interval); 
-                elemento.innerText = originalText; 
-                let iterations = 0;
+            "h.experience": "Experiência profissional",
+            "job1.role": "Analista de Suporte",
+            "job1.period": "jul 2022 – atual",
+            "job1.li1": "Suporte técnico N1, N2 e N3 em ambiente com mais de 1.000 endpoints e 100 servidores Windows e Linux.",
+            "job1.li2": "Administração de Active Directory, DFS, GPOs, Microsoft 365, Entra ID (Azure AD) e Exchange.",
+            "job1.li3": "Automação de rotinas operacionais com scripts Batch e PowerShell, eliminando acessos remotos manuais.",
+            "job1.li4": "Gestão de MDM (IBM MaaS360) e segurança de endpoint (SentinelOne e BlackBerry Cylance).",
+            "job1.li5": "Administração da plataforma Neomind Fusion (BPMS) e desenvolvimento de processos e fluxos.",
+            "job1.li6": "Administração do sistema de CFTV Digifort e inventário de ativos com OCS Inventory.",
+            "job1.li7": "Sustentação de sistemas de engenharia (SolidWorks, DraftSight, AutoCAD/Vault) e ERP TOTVS.",
+            "job1.li8": "Estruturação de fluxos de atendimento automatizados via chatbot no WhatsApp API corporativo.",
+            "job2.role": "Estagiário de TI",
+            "job2.period": "jan 2022 – jul 2022",
+            "job3.role": "Aprendiz de TI",
+            "job3.period": "jan 2021 – dez 2021",
+            "job4.role": "Aprendiz de Suprimentos",
+            "job4.period": "jan 2020 – dez 2020",
 
-                interval = setInterval(() => {
-                    event.target.innerText = originalText
-                        .split("")
-                        .map((letter, index) => {
-                            if (index < iterations) return originalText[index];
-                            return letters[Math.floor(Math.random() * letters.length)];
-                        })
-                        .join("");
+            "h.projects": "Projetos e automações",
+            "p1.title": "AUTOEXEC IT v2 — Plataforma Web de Automação de TI",
+            "p1.period": "Tuper · 2026",
+            "p1.li1": "<b>Concepção e arquitetura:</b> idealizei e estruturei a lógica de uma plataforma web corporativa de autoatendimento e automação de TI, com servidor HTTP nativo, persistência em arquivos JSON e execução remota de tarefas.",
+            "p1.li2": "<b>Desenvolvimento assistido por IA:</b> uso de lógica de programação e engenharia de prompt (LLMs) para modelar, gerar e depurar módulos em PowerShell (runspaces, servidor HTTP) e JavaScript puro.",
+            "p1.li3": "<b>Frontend:</b> interface construída com HTML/CSS e design system próprio, com transmissão de logs em tempo real para o navegador.",
+            "p1.li4": "<b>Integração e segurança:</b> autenticação integrada ao Active Directory (RBAC por grupos), execução remota via PsExec e coleta de inventário por CIM/WinRM.",
+            "p1.li5": "<b>Impacto:</b> 291 execuções com 98,3% de sucesso na fase piloto; substituiu um script legado de ~4 mil linhas e implementou observabilidade com logs estruturados em JSONL.",
 
-                    if (iterations >= originalText.length) {
-                        clearInterval(interval);
-                        elemento.innerText = originalText; 
-                    }
-                    iterations += 1;
-                }, 30);
-            });
+            "p2.title": "Laboratório de Infraestrutura Corporativa (Homelab)",
+            "p2.period": "Projeto pessoal",
+            "demo.btn": "Ver demonstração",
+            "p2.li1": "<b>Virtualização:</b> microambiente empresarial em VirtualBox, com servidores Windows e Linux configurados e mantidos.",
+            "p2.li2": "<b>Identidade e acessos:</b> Active Directory com segregação de contas nominais e credenciais administrativas.",
+            "p2.li3": "<b>Armazenamento:</b> estruturação de DFS e ingresso das máquinas virtuais no domínio.",
+            "p2.li4": "<b>Governança:</b> criação e validação de GPOs aplicadas por Unidade Organizacional para padronizar os endpoints.",
+
+            "p3.title": "Provisionamento Zero-Touch de Acessos à Internet (Fusion + AD)",
+            "p3.period": "Tuper",
+            "p3.li1": "<b>Desenvolvimento PowerShell:</b> script que processa os arquivos gerados pelo Neomind Fusion após a aprovação gerencial da solicitação.",
+            "p3.li2": "<b>Gestão de identidade e firewall:</b> inserção automática do usuário nos grupos de segurança do Active Directory integrados às regras do firewall (redes sociais, YouTube, shopping etc.).",
+            "p3.li3": "<b>Tolerância a falhas:</b> execução agendada a cada 5 minutos, com múltiplas rodadas dentro da janela de 20 minutos do Fusion, garantindo a concessão do acesso e o arquivamento do registro processado.",
+            "p3.li4": "<b>Impacto:</b> eliminou a intervenção manual do suporte para assumir o chamado, aplicar a permissão no AD e avançar a tarefa no sistema.",
+
+            "p4.title": "Instalador Unificado &amp; Menu PsExec",
+            "p4.period": "Tuper · 2024 – 2026",
+            "p4.li1": "<b>Instalador Unificado (Prog Cert):</b> automação em Batch para padronizar a instalação de softwares corporativos, com mais de 500 execuções registradas em log — cerca de 30 minutos de trabalho manual eliminados por máquina.",
+            "p4.li2": "<b>Menu Unificado PsExec:</b> console de tarefas remotas (instalação de Office 365 e Power BI, reinício de serviços, mapeamentos, envio de mensagens) usado por toda a equipe de suporte, com aproximadamente 13,8 horas operacionais economizadas em pouco mais de um mês de uso documentado.",
+
+            "h.education": "Formação acadêmica",
+            "edu1.t": "Tecnólogo em Análise e Desenvolvimento de Sistemas",
+            "edu2.t": "Técnico em Informática",
+            "edu3.t": "Assistente Administrativo",
+            "edu4.t": "Aprendizagem Industrial em Mecânica Industrial",
+
+            "h.languages": "Idiomas",
+            "lang.pt": "Português",
+            "lang.pt.lvl": "Nativo",
+            "lang.en": "Inglês",
+            "lang.en.lvl": "Intermediário (B1)",
+
+            "h.skills": "Competências",
+            "sk.infra": "Infraestrutura e sistemas",
+            "sk.dev": "Automação e desenvolvimento",
+            "sk.support": "Suporte e ferramentas corporativas",
+            "chip.ps": "PowerShell (fundamentos)",
+            "chip.js": "JavaScript (fundamentos)",
+            "chip.ai": "IA aplicada",
+            "chip.logic": "Lógica de programação",
+            "chip.integration": "Integração de sistemas",
+            "chip.support": "Suporte N1/N2/N3",
+
+            "_langBtn": "EN",
+            "_langTitle": "English",
+            "_themeDark": "Tema escuro",
+            "_themeLight": "Tema claro",
+            "_pdfTitle": "Baixar PDF"
         }
+    };
 
-        createHoverEffect("#nome");
-        createHoverEffect("#titulo");
+    const EN_UI = { _langBtn: "PT", _langTitle: "Português", _themeDark: "Dark theme", _themeLight: "Light theme", _pdfTitle: "Download PDF" };
+
+    /* ============ Estado ============ */
+    const raiz = document.documentElement;
+    let lang = "en";
+
+    /* Guarda o conteúdo original (inglês) de cada elemento traduzível */
+    document.querySelectorAll("[data-i18n]").forEach(el => { el.dataset.en = el.innerHTML; });
+
+    function ui(chave) { return (I18N[lang] || EN_UI)[chave]; }
+
+    function applyLang(next) {
+        lang = next;
+        const dict = I18N[next];
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.dataset.i18n;
+            el.innerHTML = (dict && dict[key]) ? dict[key] : el.dataset.en;
+        });
+        raiz.lang = (next === "pt") ? "pt-BR" : "en";
+        document.getElementById("labelLang").textContent = ui("_langBtn");
+        const bl = document.getElementById("btnLang");
+        bl.title = ui("_langTitle"); bl.setAttribute("aria-label", ui("_langTitle"));
+        const bp = document.getElementById("btnPdf");
+        bp.title = ui("_pdfTitle"); bp.setAttribute("aria-label", ui("_pdfTitle"));
+        atualizarBotaoTema();
+    }
+
+    function temaAtual() { return raiz.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
+
+    function atualizarBotaoTema() {
+        const escuro = temaAtual() === "dark";
+        document.getElementById("icoSol").style.display = escuro ? "" : "none";
+        document.getElementById("icoLua").style.display = escuro ? "none" : "";
+        const rotulo = escuro ? ui("_themeLight") : ui("_themeDark");
+        const bt = document.getElementById("btnTheme");
+        bt.title = rotulo; bt.setAttribute("aria-label", rotulo);
+    }
+
+    function applyTheme(next) {
+        raiz.setAttribute("data-theme", next);
+        atualizarBotaoTema();
+        salvar("cv-theme", next);
+    }
+
+    /* ============ Persistência tolerante a falhas ============ */
+    function salvar(chave, valor) { try { localStorage.setItem(chave, valor); } catch (e) { /* ignora */ } }
+    function ler(chave) { try { return localStorage.getItem(chave); } catch (e) { return null; } }
+
+    /* ============ Efeito de embaralhar texto no nome ============ */
+    (function () {
+        const el = document.getElementById("nome");
+        const original = el.textContent;
+        const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let intervalo = null;
+        if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        el.addEventListener("mouseover", () => {
+            clearInterval(intervalo);
+            let i = 0;
+            intervalo = setInterval(() => {
+                el.textContent = original.split("").map((c, k) => (k < i || c === " ") ? c : letras[Math.floor(Math.random() * letras.length)]).join("");
+                if (i >= original.length) { clearInterval(intervalo); el.textContent = original; }
+                i += 1;
+            }, 30);
+        });
+    })();
+
+    /* ============ Inicialização ============ */
+    const langSalvo = ler("cv-lang");
+    applyLang(langSalvo === "pt" || langSalvo === "en" ? langSalvo
+        : ((navigator.language || "").toLowerCase().startsWith("pt") ? "pt" : "en"));
+    atualizarBotaoTema();
+
+    document.getElementById("btnLang").addEventListener("click", () => { applyLang(lang === "en" ? "pt" : "en"); salvar("cv-lang", lang); });
+    document.getElementById("btnTheme").addEventListener("click", () => applyTheme(temaAtual() === "dark" ? "light" : "dark"));
     </script>
 </body>
 </html>
